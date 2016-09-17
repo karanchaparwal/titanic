@@ -1,11 +1,6 @@
-# Trevor Stephens - 18 Jan 2014
-# Titanic: Getting Started With R - Part 5: Random Forests
-# Full guide available at http://trevorstephens.com/
 
-# Set working directory and import datafiles
-setwd("~/Kaggle/Titanic")
 train <- read.csv("train.csv")
-test <- read.csv("test.csv")
+test <- read.csv("test2.csv")
 
 # Install and load required packages for decision trees and forests
 library(rpart)
@@ -91,6 +86,6 @@ fit <- cforest(as.factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch + Fare +
                data = train, controls=cforest_unbiased(ntree=2000, mtry=3)) 
 # Now let's make a prediction and write a submission file
 Prediction <- predict(fit, test, OOB=TRUE, type = "response")
-submit <- data.frame(PassengerId = test$PassengerId, Survived = Prediction)
-write.csv(submit, file = "ciforest.csv", row.names = FALSE)
+submit <- data.frame(test, Survived = Prediction)
+write.csv(submit, file = "ciforest1.csv", row.names = FALSE)
 
